@@ -1,0 +1,191 @@
+.navbar {
+    width: 100%;
+    max-width: 1280px;
+    height: 80px;
+    padding: 17px 19px 23px 1px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+  }
+  
+  .navbar-logo {
+    width: auto;
+    padding: 8px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .logo-container {
+    width: 153px;
+    height: 33px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+  }
+  
+  .logo-container img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .navbar-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .user-info {
+    width: 100%;
+    max-width: 300px;
+    height: 40px;
+    padding: 0px 9px;
+    background: white;
+    border-radius: 10px;
+    border: 0.80px solid #E1E1E1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .user-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-family: 'BNPP Sans', sans-serif;
+    color: #1C1C1C;
+    background: none;
+    line-height: 20px;
+    padding: 0;
+    text-align: left;
+  }
+  
+  .user-input::placeholder {
+    color: #A0A0A0;
+  }
+  
+  .user-avatar .load-icon {
+    width: 24px;
+    height: 24px;
+    position: relative;
+  }
+  
+  .user-avatar .load-icon::before {
+    content: '';
+    width: 15.93px;
+    height: 18.93px;
+    position: absolute;
+    left: 4.03px;
+    top: 2.53px;
+  }
+  
+  .admin-info {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  
+  .admin-avatar {
+    height: 40px;
+    padding-right: 7px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .admin-avatar .avatar-container {
+    width: 24px;
+    height: 24px;
+    position: relative;
+  }
+  
+  .admin-avatar .inner-avatar {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    left: 2px;
+    top: 2px;
+  }
+  
+  .admin-email {
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+    color: #1C1C1C;
+    line-height: 20px;
+    text-align: center;
+  }
+  
+  .dropdown-icon {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+  
+  .dropdown {
+    width: 9px;
+    position: relative;
+  }
+  
+  /* Responsividade para telas menores */
+  @media (max-width: 768px) {
+    .navbar {
+      flex-direction: column;
+      align-items: center;
+      padding: 10px;
+      height: auto;
+      gap: 20px;
+    }
+  
+    .navbar-content {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+  
+    .user-info, .admin-info {
+      width: 100%;
+      max-width: none;
+      justify-content: space-between;
+    }
+  
+    .user-input {
+      font-size: 12px;
+    }
+  
+    .admin-email {
+      font-size: 12px;
+      text-align: left;
+    }
+  
+    .logo-container {
+      width: 120px;
+    }
+  }
+  
+  /* Responsividade para telas muito pequenas */
+  @media (max-width: 480px) {
+    .navbar {
+      padding: 8px;
+    }
+  
+    .logo-container {
+      width: 100px;
+    }
+  
+    .user-input {
+      font-size: 11px;
+    }
+  
+    .admin-email {
+      font-size: 11px;
+    }
+  }
+  

@@ -1,0 +1,124 @@
+.sidenav-container {
+    width: 177px;
+    padding: 16px;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 165px;
+  }
+  
+  .sidenav-header, .sidenav-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+  }
+  
+  .sidenav-section {
+    height: 148px;
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+  }
+  
+  .sidenav-item {
+    display: inline-flex;
+    align-self: stretch;
+    height: 36px;
+    padding: 8px;
+    border-radius: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+  }
+  
+  .sidenav-item.active {
+    background: #03A776;
+    border: 2px rgba(138, 191, 145, 0.74) solid;
+  }
+  
+  .sidenav-icon {
+    width: 17px;
+    height: 17px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .sidenav-icon-content {
+    width: 18px;
+    height: 18px;
+    background: white;
+  }
+  
+  .sidenav-label {
+    flex: 1;
+    color: #0D1519;
+    font-size: 9px;
+    font-family: 'Open Sans';
+    font-weight: 700;
+  }
+
+  .sidenav-item.active .sidenav-label {
+    color: #ffff;
+  }
+  
+  .sidenav-footer .recent-item, .audio-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .recent-item {
+    width: 130px;
+    height: 20px;
+    justify-content: space-between;
+  }
+  
+  .recent-icon {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .recent-label {
+    color: #616161;
+    font-size: 13px;
+    font-family: 'BNPP Sans';
+  }
+  
+  .audio-list .audio-item {
+    display: inline-flex;
+    gap: 8px;
+    border-radius: 12px;
+  }
+  
+  .audio-icon {
+    width: 16px;
+    height: 16px;
+    background: rgba(28, 28, 28, 0.20);
+  }
+  
+  .audio-label {
+    font-size: 11px;
+    color: #39594D;
+    font-family: 'Open Sans';
+  }
+  
+  .sidenav-settings {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .settings-icon {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .settings-label {
+    color: #616161;
+    font-size: 13px;
+    font-family: 'BNPP Sans';
+  }
+  
