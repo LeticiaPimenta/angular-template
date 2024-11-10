@@ -12,6 +12,7 @@ import { Route, Router } from '@angular/router';
 import { noop, tap } from 'rxjs';
 import { AuthState } from '../../state/reducers/auth.reducer';
 import { login } from '../../state/actions/auth.actions';
+import { AutocompleteComponent } from '../../shared/components/autocomplete/autocomplete.component';
 
 
 @Component({
@@ -24,7 +25,8 @@ import { login } from '../../state/actions/auth.actions';
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
-    MatIconModule
+    MatIconModule,
+    AutocompleteComponent
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
@@ -43,7 +45,12 @@ export class LoginComponent {
       password: ['123', Validators.required],
     });
   }
-
+  countries = ['Brazil', 'Argentina', 'Chile', 'Uruguay', 'Colombia', 'Peru'];
+  
+  onSelect(country: string): void {
+    console.log('Selected country:', country);
+  }
+  
   onSubmit() {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;

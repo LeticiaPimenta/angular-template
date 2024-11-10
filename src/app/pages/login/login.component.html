@@ -1,7 +1,11 @@
 <mat-card class="login-card">
     <mat-card-title class="title-login">Login</mat-card-title>
-  
-    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <app-autocomplete
+    [suggestions]="countries"
+    placeholder="Search for a country"
+    (selected)="onSelect($event)"
+  ></app-autocomplete>
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label >Email</mat-label>
         <input class="m-b12" matInput formControlName="email" placeholder="Insira seu email" type="email" />

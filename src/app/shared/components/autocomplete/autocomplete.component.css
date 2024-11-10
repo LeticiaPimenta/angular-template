@@ -1,0 +1,23 @@
+.autocomplete-input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+  }
+  
+  .suggestions {
+    list-style-type: none;
+    padding: 0;
+    border: 1px solid #ddd;
+    max-height: 150px;
+    overflow-y: auto;
+  }
+  
+  .suggestions li {
+    padding: 8px;
+    cursor: pointer;
+  }
+  
+  .suggestions li:hover {
+    background-color: #f0f0f0;
+  }
+  
