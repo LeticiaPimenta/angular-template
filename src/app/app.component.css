@@ -1,3 +1,20 @@
 .layout {
     display: flex;
 }
+
+/* styles.css ou no próprio componente de estilo */
+.error-snackbar {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .success-snackbar {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .info-snackbar {
+    background-color: #2196f3;
+    color: #fff;
+  }
+  

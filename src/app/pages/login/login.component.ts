@@ -13,6 +13,7 @@ import { noop, tap } from 'rxjs';
 import { AuthState } from '../../state/reducers/auth.reducer';
 import { login } from '../../state/actions/auth.actions';
 import { AutocompleteComponent } from '../../shared/components/autocomplete/autocomplete.component';
+import { NotificationService } from '../../shared/services/notification.service';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class LoginComponent {
 
   constructor(
     private fb: FormBuilder,
+    private notificationService: NotificationService,
     private auth: AuthService,
     private router: Router,
     private store: Store<AuthState>
@@ -66,7 +68,7 @@ export class LoginComponent {
       )
       .subscribe(
         noop,
-        () => alert('Login Failed')
+        () => this.notificationService.showError('Login Failed')
       );
     }
   }
