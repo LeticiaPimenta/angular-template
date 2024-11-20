@@ -17,5 +17,4 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './sidenav.component.css'
 })
 export class SidenavComponent {
-
 }

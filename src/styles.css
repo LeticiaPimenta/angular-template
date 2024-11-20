@@ -3,3 +3,19 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #F7F7F7; }
 
+/* styles.css ou no próprio componente de estilo */
+.error-snackbar {
+    background-color: #f44336;
+    color: #000;
+  }
+  
+  .success-snackbar {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .info-snackbar {
+    background-color: #2196f3;
+    color: #fff;
+  }
+  

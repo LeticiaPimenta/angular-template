@@ -13,7 +13,7 @@ export const initialState: AuthState = {
 const _authReducer = createReducer(
   initialState,
   on(login, (state, { user }) => ({ ...state, user })),
-  on(logout, state => ({ ...state, user: null }))
+  on(logout, state => ({ ...state, user: null })),
 );
 
 export function authReducer(state: AuthState | undefined, action: Action<string>) {

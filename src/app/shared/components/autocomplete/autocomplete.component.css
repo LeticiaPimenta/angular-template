@@ -1,7 +1,15 @@
 .autocomplete-input {
-    width: 100%;
+    width: 200px;
+    transition: width 0.3s ease;
     padding: 8px;
     font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .autocomplete-input.expanded {
+    width: 300px; /* Expande o campo quando focado */
+    border-color: #888; /* Altera a cor da borda ao expandir */
   }
   
   .suggestions {
@@ -10,6 +18,11 @@
     border: 1px solid #ddd;
     max-height: 150px;
     overflow-y: auto;
+    border-radius: 4px;
+    margin-top: 4px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
   
   .suggestions li {
@@ -19,5 +32,11 @@
   
   .suggestions li:hover {
     background-color: #f0f0f0;
+  }
+  
+  /* Mostra as sugestões com animação */
+  .suggestions.ng-trigger {
+    opacity: 1;
+    transform: translateY(0);
   }
   

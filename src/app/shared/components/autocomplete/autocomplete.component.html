@@ -1,12 +1,15 @@
 <input
-type="text"
-[(ngModel)]="query"
-(input)="onInput($event)"
-placeholder="{{ placeholder }}"
-class="autocomplete-input"
+  type="text"
+  [(ngModel)]="query"
+  (focus)="onFocus()"
+  (blur)="onBlur()"
+  (input)="onInput($event)"
+  [class.expanded]="isFocused || filteredSuggestions.length > 0"
+  placeholder="{{ placeholder }}"
+  class="autocomplete-input"
 />
-<ul *ngIf="filteredSuggestions.length > 0" class="suggestions">
-<li *ngFor="let suggestion of filteredSuggestions" (click)="selectSuggestion(suggestion)">
-  {{ suggestion }}
-</li>
+<ul *ngIf="isFocused && filteredSuggestions.length > 0" class="suggestions">
+  <li *ngFor="let suggestion of filteredSuggestions" (click)="selectSuggestion(suggestion)">
+    {{ suggestion }}
+  </li>
 </ul>

@@ -17,13 +17,14 @@ export class AutocompleteComponent {
 
   query: string = '';
   filteredSuggestions: string[] = [];
+  isFocused: boolean = false;
   private querySubject = new Subject<string>();
 
   constructor() {
     this.querySubject
       .pipe(
-        debounceTime(300),               // Aguarda 300ms após o usuário parar de digitar
-        distinctUntilChanged(),           // Evita buscas repetidas para o mesmo valor
+        debounceTime(300),
+        distinctUntilChanged(),
         switchMap((query) => this.filterSuggestions(query))
       )
       .subscribe((suggestions) => (this.filteredSuggestions = suggestions));
@@ -47,6 +48,16 @@ export class AutocompleteComponent {
     this.query = suggestion;
     this.filteredSuggestions = [];
     this.selected.emit(suggestion);
+    this.isFocused = false;
   }
 
+  onFocus(): void {
+    this.isFocused = true;
+  }
+
+  onBlur(): void {
+    setTimeout(() => {
+      this.isFocused = false;
+    }, 200); // Atraso para permitir que o clique na sugestão seja registrado antes do blur
+  }
 }
