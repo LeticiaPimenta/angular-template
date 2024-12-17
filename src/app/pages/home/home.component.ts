@@ -36,21 +36,19 @@ export class HomeComponent {
     this.filteredItems$ = this.filterSubject.pipe(
       switchMap((filter) =>
         filter === 'ALL'
-          ? this.allItems$ 
+          ? this.allItems$
           : this.allItems$.pipe(
               map((items) => items.filter((item) => item.status === filter))
             )
       )
     );
 
-    // Atualiza o dataSource sempre que filteredItems$ emite valores
-    this.filteredItems$.subscribe((items) => {
-      console.log(this.allItems$);
-      this.dataSource.data = items || []; // Garante que a dataSource nunca receba null
-      console.log(items);
-    });
+    if (this.filteredItems$) {
+      this.filteredItems$.subscribe((items) => {
+        this.dataSource.data = items || [];
+      });
+    }
   }
-
   setFilter(status: string) {
     this.filterSubject.next(status);
   }
