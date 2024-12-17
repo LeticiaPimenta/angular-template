@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 import { selectAllAudios, selectAllAudioLoading } from '../../store/audio.selectors';
 import { Item } from '../../models/item.model';
@@ -24,22 +24,26 @@ export class AudioListComponent {
   displayedColumns: string[] = ['id', 'name', 'status'];  // Colunas da tabela
 
   constructor(private store: Store) {
-    // Observables para os áudios e estado de carregamento
+    // Obtemos os áudios e o estado de carregamento do store
     this.allAudios$ = this.store.select(selectAllAudios);
     this.loading$ = this.store.select(selectAllAudioLoading);
 
-    // Lógica de filtragem: quando a aba mudar, o filtro é atualizado
+    // Inicializa o Observable com dados vazios, caso não exista
     this.filteredAudios$ = this.filterSubject.pipe(
-      switchMap((filter) =>
-        filter === 'ALL'
-          ? this.allAudios$
-          : this.allAudios$.pipe(
-              map((audios) => audios.filter((audio) => audio.status === filter))
-            )
-      )
+      switchMap((filter) => {
+        return this.allAudios$.pipe(
+          map((audios) => {
+            // Verifica se 'audios' é undefined ou null
+            const validAudios = audios || [];
+            return filter === 'ALL'
+              ? validAudios
+              : validAudios.filter((audio) => audio.status === filter);
+          })
+        );
+      })
     );
 
-    // Atualiza o dataSource com os áudios filtrados
+    // Atualiza o dataSource sempre que filteredAudios$ emite novos valores
     this.filteredAudios$.subscribe((audios) => {
       this.dataSource.data = audios || [];
     });
