@@ -1,1 +1,31 @@
-<p>home works!</p>
+<mat-tab-group  (selectedIndexChange)="onTabChange($event)">
+    <mat-tab label="All" appFilterTab="ALL"></mat-tab>
+    <mat-tab label="Completed" appFilterTab="COMPLETED" ></mat-tab>
+    <mat-tab label="Running" appFilterTab="RUNNING"></mat-tab>
+    <mat-tab label="Failed" appFilterTab="FAILED"></mat-tab>
+    <mat-tab label="Pending" appFilterTab="PENDING"></mat-tab>
+  </mat-tab-group>
+  
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- ID Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.name }} </mat-cell>
+    </ng-container>
+  
+    <!-- Status Column -->
+    <ng-container matColumnDef="status">
+      <mat-header-cell *matHeaderCellDef> Status </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.status }} </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  
