@@ -56,3 +56,20 @@ export class AudioListComponent {
     this.filterSubject.next(selectedFilter);
   }
 }
+
+
+
+///
+this.filteredAudios$ = this.filterSubject.pipe(
+    switchMap((filter) => {
+      return this.allAudios$.pipe(
+        map((audios) => {
+          // Verifica se 'audios' é undefined ou null
+          const validAudios = audios || [];
+          return filter === 'ALL'
+            ? validAudios
+            : validAudios.filter((audio) => audio.status === filter);
+        })
+      );
+    })
+  );
