@@ -41,3 +41,28 @@ export class BreadcrumbComponent {
     this.items.set(breadcrumbItems);
   }
 }
+
+
+
+aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+SpeechRecognitionAlternative
+
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { Transcription } from './transcription.model';
+import { selectAudioByID } from './store/selectors';
+
+@Component({
+  selector: 'app-transcription',
+  templateUrl: './transcription.component.html',
+})
+export class TranscriptionComponent {
+  transcriptions: Transcription[] = [];
+
+  constructor(private store: Store) {
+    this.store.select(selectAudioByID).subscribe(data => {
+      this.transcriptions = data; // Armazena os dados diretamente no array
+    });
+  }
+}
