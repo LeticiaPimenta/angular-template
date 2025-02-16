@@ -1,7 +1,7 @@
-import { Component, OnInit, effect, inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
-import { NgIf, NgFor } from '@angular/common';
 import { filter } from 'rxjs/operators';
+import { NgIf, NgFor } from '@angular/common';
 
 interface Breadcrumb {
   label: string;
@@ -13,8 +13,8 @@ interface Breadcrumb {
   standalone: true,
   imports: [NgIf, NgFor],
   template: `
-    <nav>
-      <ul class="breadcrumb">
+    <nav *ngIf="breadcrumbs.length > 0" class="breadcrumb">
+      <ul>
         <li *ngFor="let breadcrumb of breadcrumbs; let last = last">
           <a *ngIf="!last; else lastBreadcrumb" [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
           <ng-template #lastBreadcrumb><span>{{ breadcrumb.label }}</span></ng-template>
@@ -23,17 +23,19 @@ interface Breadcrumb {
     </nav>
   `,
   styles: [`
-    .breadcrumb {
+    .breadcrumb ul {
       list-style: none;
       display: flex;
       padding: 10px;
+      background: #f8f9fa;
+      border-radius: 5px;
     }
     .breadcrumb li {
       margin-right: 8px;
     }
     .breadcrumb li a {
       text-decoration: none;
-      color: blue;
+      color: #007bff;
     }
     .breadcrumb li span {
       font-weight: bold;
@@ -51,12 +53,10 @@ export class BreadcrumbComponent implements OnInit {
   breadcrumbs: Breadcrumb[] = [];
 
   ngOnInit(): void {
-    effect(() => {
-      this.router.events.pipe(
-        filter(event => event instanceof NavigationEnd)
-      ).subscribe(() => {
-        this.breadcrumbs = this.createBreadcrumbs(this.route.root);
-      });
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.breadcrumbs = this.createBreadcrumbs(this.route.root);
     });
   }
 
