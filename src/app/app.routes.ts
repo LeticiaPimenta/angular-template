@@ -6,4 +6,7 @@ export const routes: Routes = [
     { path: 'home', component: HomeComponent },
     { path: 'login', component: LoginComponent },
     { path: '', redirectTo: 'login', pathMatch: 'full' },
+    { path: 'job-performance', component: JobPerformanceComponent },
+    { path: 'calls', component: CallsComponent },
+    { path: 'details/:id', component: CallComponent },
 ];

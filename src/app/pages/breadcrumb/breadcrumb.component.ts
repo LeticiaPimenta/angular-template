@@ -1,68 +1,64 @@
-import { Component, signal, effect, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MenuItem } from 'primeng/api';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
+
+interface Breadcrumb {
+  label: string;
+  url: string;
+}
 
 @Component({
   selector: 'app-breadcrumb',
-  standalone: true,
-  imports: [CommonModule, BreadcrumbModule],
-  template: `<p-breadcrumb [model]="items()"></p-breadcrumb>`,
+  templateUrl: './breadcrumb.component.html',
+  styleUrls: ['./breadcrumb.component.css']
 })
-export class BreadcrumbComponent {
-  router = inject(Router);
-  route = inject(ActivatedRoute);
-  items = signal<MenuItem[]>([]);
+export class BreadcrumbComponent implements OnInit {
+  breadcrumbs: Breadcrumb[] = [];
 
-  constructor() {
-    effect(() => {
-      this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(() => {
-        this.updateBreadcrumb();
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+
+  ngOnInit(): void {
+    this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd))
+      .subscribe(() => {
+        this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
       });
-    });
   }
 
-  private updateBreadcrumb() {
-    const breadcrumbItems: MenuItem[] = [];
-    let url = '';
+  private createBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: Breadcrumb[] = []): Breadcrumb[] {
+    const children: ActivatedRoute[] = route.children;
 
-    this.route.root.children.forEach(route => {
-      if (route.snapshot.url.length > 0) {
-        url += '/' + route.snapshot.url.map(segment => segment.path).join('/');
-        breadcrumbItems.push({
-          label: route.snapshot.data['breadcrumb'] || route.snapshot.url[0].path,
-          routerLink: url
-        });
+    if (children.length === 0) {
+      return breadcrumbs;
+    }
+
+    for (const child of children) {
+      const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
+
+      if (routeURL !== '') {
+        url += `/${routeURL}`;
       }
-    });
 
-    this.items.set(breadcrumbItems);
+      const breadcrumb: Breadcrumb = {
+        label: this.getBreadcrumbLabel(child.snapshot.url.map(segment => segment.path).join('/')),
+        url: url
+      };
+
+      breadcrumbs.push(breadcrumb);
+      return this.createBreadcrumbs(child, url, breadcrumbs);
+    }
+
+    return breadcrumbs;
   }
-}
 
+  private getBreadcrumbLabel(route: string): string {
+    const labels: { [key: string]: string } = {
+      home: 'Home',
+      'job-performance': 'Job Performance',
+      calls: 'Calls',
+      details: 'Details'
+    };
 
-
-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-SpeechRecognitionAlternative
-
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { Transcription } from './transcription.model';
-import { selectAudioByID } from './store/selectors';
-
-@Component({
-  selector: 'app-transcription',
-  templateUrl: './transcription.component.html',
-})
-export class TranscriptionComponent {
-  transcriptions: Transcription[] = [];
-
-  constructor(private store: Store) {
-    this.store.select(selectAudioByID).subscribe(data => {
-      this.transcriptions = data; // Armazena os dados diretamente no array
-    });
+    return labels[route] || route;
   }
 }
