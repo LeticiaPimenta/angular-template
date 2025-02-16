@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Component, OnInit, effect, inject } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { NgIf, NgFor } from '@angular/common';
 import { filter } from 'rxjs/operators';
 
 interface Breadcrumb {
@@ -9,56 +10,79 @@ interface Breadcrumb {
 
 @Component({
   selector: 'app-breadcrumb',
-  templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.css']
+  standalone: true,
+  imports: [NgIf, NgFor],
+  template: `
+    <nav>
+      <ul class="breadcrumb">
+        <li *ngFor="let breadcrumb of breadcrumbs; let last = last">
+          <a *ngIf="!last; else lastBreadcrumb" [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+          <ng-template #lastBreadcrumb><span>{{ breadcrumb.label }}</span></ng-template>
+        </li>
+      </ul>
+    </nav>
+  `,
+  styles: [`
+    .breadcrumb {
+      list-style: none;
+      display: flex;
+      padding: 10px;
+    }
+    .breadcrumb li {
+      margin-right: 8px;
+    }
+    .breadcrumb li a {
+      text-decoration: none;
+      color: blue;
+    }
+    .breadcrumb li span {
+      font-weight: bold;
+    }
+    .breadcrumb li:not(:last-child)::after {
+      content: '>';
+      margin-left: 8px;
+      color: gray;
+    }
+  `]
 })
 export class BreadcrumbComponent implements OnInit {
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
   breadcrumbs: Breadcrumb[] = [];
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
-
   ngOnInit(): void {
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(() => {
-        this.breadcrumbs = this.createBreadcrumbs(this.activatedRoute.root);
+    effect(() => {
+      this.router.events.pipe(
+        filter(event => event instanceof NavigationEnd)
+      ).subscribe(() => {
+        this.breadcrumbs = this.createBreadcrumbs(this.route.root);
       });
+    });
   }
 
   private createBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: Breadcrumb[] = []): Breadcrumb[] {
-    const children: ActivatedRoute[] = route.children;
+    const children = route.children;
 
     if (children.length === 0) {
       return breadcrumbs;
     }
 
     for (const child of children) {
-      const routeURL: string = child.snapshot.url.map(segment => segment.path).join('/');
-
+      const routeURL = child.snapshot.url.map(segment => segment.path).join('/');
       if (routeURL !== '') {
         url += `/${routeURL}`;
       }
 
-      const breadcrumb: Breadcrumb = {
-        label: this.getBreadcrumbLabel(child.snapshot.url.map(segment => segment.path).join('/')),
-        url: url
-      };
+      if (child.snapshot.data['title']) {
+        breadcrumbs.push({
+          label: child.snapshot.data['title'],
+          url: url
+        });
+      }
 
-      breadcrumbs.push(breadcrumb);
       return this.createBreadcrumbs(child, url, breadcrumbs);
     }
 
     return breadcrumbs;
-  }
-
-  private getBreadcrumbLabel(route: string): string {
-    const labels: { [key: string]: string } = {
-      home: 'Home',
-      'job-performance': 'Job Performance',
-      calls: 'Calls',
-      details: 'Details'
-    };
-
-    return labels[route] || route;
   }
 }
