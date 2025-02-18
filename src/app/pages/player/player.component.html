@@ -1,0 +1,13 @@
+<div class="audio-player">
+    <audio #audioPlayer (timeupdate)="atualizarTempo()" (loadedmetadata)="carregarMetadata()">
+      <source [src]="audioSrc" type="audio/mp3" />
+      Seu navegador não suporta áudio.
+    </audio>
+  
+    <div class="controls">
+      <button (click)="playPause()">▶️/⏸️</button>
+      <button (click)="stop()">⏹️</button>
+      <span>{{ tempoAtual }} / {{ duracao }}</span>
+    </div>
+  </div>
+  
