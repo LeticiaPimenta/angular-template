@@ -1,0 +1,134 @@
+.container {
+    width: 318.3px;
+    height: 55.49px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .icon-group {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 68px;
+  }
+  
+  .icon {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icon-content {
+    width: 42px;
+    height: 48px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .icon-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icon-padding {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icon-inner {
+    width: 13px;
+    height: 12px;
+    background: #49454F;
+    position: relative;
+    left: 5.5px;
+    top: 6px;
+  }
+  
+  .secondary-icon {
+    width: 24px;
+    height: 24px;
+    background: #CEE0D4;
+    border-radius: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .icon-inner-alt {
+    width: 11px;
+    height: 14px;
+    background: #39594D;
+    position: relative;
+    left: 8px;
+    top: 5px;
+  }
+  
+  .progress-bar {
+    width: 318.3px;
+    height: 32.19px;
+    position: relative;
+  }
+  
+  .progress-bg {
+    width: 318.3px;
+    height: 7.15px;
+    background: #E0E0E0;
+    border-radius: 4px;
+    position: absolute;
+  }
+  
+  .progress-fill {
+    width: 163.57px;
+    height: 7.15px;
+    background: #CEE0D4;
+    border-radius: 4px;
+    position: absolute;
+  }
+  
+  .progress-handle {
+    width: 13.35px;
+    height: 17px;
+    background: #CEE0D4;
+    border-radius: 9999px;
+    position: absolute;
+  }
+  
+  .progress-time {
+    font-size: 13px;
+    font-family: Inter, sans-serif;
+    font-weight: 400;
+    color: rgba(118, 166, 130, 0.56);
+    position: absolute;
+  
+    &.start {
+      left: 0;
+    }
+  
+    &.end {
+      right: 0;
+      text-align: right;
+    }
+  }
+  
