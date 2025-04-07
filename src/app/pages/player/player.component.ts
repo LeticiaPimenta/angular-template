@@ -48,18 +48,53 @@ function ViewChild(arg0: string, arg1: { static: boolean; }): (target: PlayerCom
 
 
 ||||||||||||||||||
-@ViewChild('audioPlayer', { static: false }) audioPlayerRef!: ElementRef<HTMLAudioElement>;
+import { Component, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { selectTrancriptionSegments } from 'path-to-your-selector';
+import { TranscriptSegment } from 'path-to-your-model';
 
-activeIndex: number = -1;
+@Component({
+  selector: 'app-audio-player',
+  templateUrl: './audio-player.component.html',
+  styleUrls: ['./audio-player.component.scss']
+})
+export class AudioPlayerComponent implements AfterViewInit {
+  myAudio = ['assets/audio/medium.mp3'];
+  transcriptionSegments$!: Observable<TranscriptSegment[]>;
+  transcript: TranscriptSegment[] = [];
 
-onTimeUpdate(): void {
-  const currentTime = this.audioPlayerRef.nativeElement.currentTime;
+  @ViewChild('audioPlayer', { static: false }) audioPlayerRef!: ElementRef<HTMLAudioElement>;
 
-  const index = this.transcript.findIndex(segment =>
-    currentTime >= segment.start && currentTime < segment.end
-  );
+  activeIndex: number = -1;
 
-  if (index !== this.activeIndex) {
-    this.activeIndex = index;
+  constructor(private store: Store) {}
+
+  ngAfterViewInit(): void {
+    // Get transcript data from the store
+    this.transcriptionSegments$ = this.store.select(selectTrancriptionSegments);
+    this.transcriptionSegments$.subscribe(segments => {
+      this.transcript = segments;
+    });
+  }
+
+  onTimeUpdate(): void {
+    const currentTime = this.audioPlayerRef.nativeElement.currentTime;
+
+    const index = this.transcript.findIndex(segment =>
+      currentTime >= segment.start && currentTime < segment.end
+    );
+
+    if (index !== this.activeIndex) {
+      this.activeIndex = index;
+    }
+  }
+
+  playAudio() {
+    this.audioPlayerRef.nativeElement.play();
+  }
+
+  pauseAudio() {
+    this.audioPlayerRef.nativeElement.pause();
   }
 }
