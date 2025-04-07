@@ -11,3 +11,13 @@
     </div>
   </div>
   
+
+  <audio #audioPlayer controls (timeupdate)="onTimeUpdate()">
+    <source [src]="myAudio[0]" type="audio/mpeg" />
+  </audio>
+  
+  <div *ngFor="let segment of transcript; let i = index"
+       [class.active]="i === activeIndex">
+    {{ segment.text }}
+  </div>
+  

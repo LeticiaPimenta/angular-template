@@ -45,3 +45,21 @@ function ViewChild(arg0: string, arg1: { static: boolean; }): (target: PlayerCom
   throw new Error('Function not implemented.');
 }
 
+
+
+||||||||||||||||||
+@ViewChild('audioPlayer', { static: false }) audioPlayerRef!: ElementRef<HTMLAudioElement>;
+
+activeIndex: number = -1;
+
+onTimeUpdate(): void {
+  const currentTime = this.audioPlayerRef.nativeElement.currentTime;
+
+  const index = this.transcript.findIndex(segment =>
+    currentTime >= segment.start && currentTime < segment.end
+  );
+
+  if (index !== this.activeIndex) {
+    this.activeIndex = index;
+  }
+}
