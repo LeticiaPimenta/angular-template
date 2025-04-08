@@ -74,3 +74,17 @@ controls
 <div class="progress-time start">{{ formatTime(currentTime) }}</div>
 <div class="progress-time end">{{ formatTime(duration) }}</div>
 </div>
+
+
+<!-- how to move the progress bar -->
+<div class="progress-bar"
+(mousedown)="onMouseDown($event)"
+(mousemove)="onMouseMove($event)"
+(mouseup)="onMouseUp()"
+(mouseleave)="onMouseUp()">
+<div class="progress-bg"></div>
+<div class="progress-fill" [style.width.%]="(currentTime / duration) * 100"></div>
+<div class="progress-handle" [style.left.%]="(currentTime / duration) * 100"></div>
+<div class="progress-time start">{{ formatTime(currentTime) }}</div>
+<div class="progress-time end">{{ formatTime(duration) }}</div>
+</div>
