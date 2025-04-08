@@ -98,3 +98,35 @@ export class AudioPlayerComponent implements AfterViewInit {
     this.audioPlayerRef.nativeElement.pause();
   }
 }
+
+
+//progress bar 
+currentTime: number = 0;
+duration: number = 0;
+
+onLoadedMetadata() {
+  this.duration = this.audioPlayerRef.nativeElement.duration;
+}
+
+onTimeUpdate() {
+  this.currentTime = this.audioPlayerRef.nativeElement.currentTime;
+
+  // Match active segment
+  const index = this.transcript.findIndex(segment =>
+    this.currentTime >= segment.start && this.currentTime < segment.end
+  );
+  if (index !== this.activeIndex) {
+    this.activeIndex = index;
+  }
+}
+
+onSeek(event: MouseEvent) {
+  const progressBar = event.currentTarget as HTMLElement;
+  const rect = progressBar.getBoundingClientRect();
+  const clickX = event.clientX - rect.left;
+  const width = rect.width;
+  const percent = clickX / width;
+  const seekTime = percent * this.duration;
+
+  this.audioPlayerRef.nativeElement.currentTime = seekTime;
+}

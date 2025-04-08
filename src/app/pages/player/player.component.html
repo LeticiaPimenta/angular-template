@@ -21,3 +21,22 @@
     {{ segment.text }}
   </div>
   
+
+<!--   proress bar -->
+<audio #audioPlayer
+controls
+(loadedmetadata)="onLoadedMetadata()"
+(timeupdate)="onTimeUpdate()">
+<source [src]="myAudio[0]" type="audio/mpeg" />
+</audio>
+
+<!-- Custom progress bar -->
+<div class="progress-container" (click)="onSeek($event)">
+<div class="progress-bar" [style.width.%]="(currentTime / duration) * 100"></div>
+</div>
+
+<!-- Transcript -->
+<div *ngFor="let segment of transcript; let i = index"
+[class.active]="i === activeIndex">
+{{ segment.text }}
+</div>

@@ -27,3 +27,23 @@
     background: #e68900;
   }
   
+
+  /* progress bar */
+
+  .progress-container {
+    width: 100%;
+    height: 8px;
+    background-color: #ddd;
+    border-radius: 4px;
+    margin: 16px 0;
+    cursor: pointer;
+    position: relative;
+  }
+  
+  .progress-bar {
+    height: 100%;
+    background-color: #3f51b5;
+    transition: width 0.1s linear;
+    border-radius: 4px;
+  }
+  
