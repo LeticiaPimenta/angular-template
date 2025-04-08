@@ -38,3 +38,21 @@
     </div>
   </div>
   
+
+  <!-- profress bar -->
+
+  <audio #audioPlayer
+       controls
+       (loadedmetadata)="onTimeUpdate()"
+       (timeupdate)="onTimeUpdate()">
+  <source [src]="myAudio[0]" type="audio/mpeg" />
+</audio>
+
+<!-- Custom Progress Bar -->
+<div class="progress-bar" (click)="onSeek($event)">
+  <div class="progress-bg"></div>
+  <div class="progress-fill" [style.width.%]="(currentTime / duration) * 100"></div>
+  <div class="progress-handle" [style.left.%]="(currentTime / duration) * 100"></div>
+  <div class="progress-time start">{{ formatTime(currentTime) }}</div>
+  <div class="progress-time end">{{ formatTime(duration) }}</div>
+</div>
