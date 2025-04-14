@@ -137,3 +137,11 @@ ngOnInit() {
     this.isDragging = false;
   }
   
+
+  switchLang(lang: string) {
+    this.translationService.loadTranslations(lang);
+  }
+
+  t(key: string): string {
+    return this.translationService.translate(key);
+  }
