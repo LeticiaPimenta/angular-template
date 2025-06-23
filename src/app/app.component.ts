@@ -14,4 +14,13 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'angular-template';
+
+  constructor(private authService: AuthService) {}
+
+  ngOnInit() {
+    this.authService.fetchToken().subscribe({
+      next: token => console.log('[App] Token carregado:', token),
+      error: err => console.error('[App] Erro ao buscar token:', err)
+    });
+  }
 }
