@@ -1,21 +1,25 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 
+const API_BASE_URL = 'https://api.exemplo.com';
+
 export const authInterceptorFn: HttpInterceptorFn = (req, next) => {
-  const isApiRequest = req.url.startsWith('https://api.seudominio.com'); // ou '/api' se usar proxy
+  const token = localStorage.getItem('jwt');
+
+  // Filtra para só alterar chamadas da API (que começam com /api, por exemplo)
+  const isApiRequest = req.url.includes('/api/');
 
   if (!isApiRequest) {
-    // 👇 não modifica, só repassa
+    // Não altera requisições para assets (ex: traduções)
     return next(req);
   }
 
-  const token = 'Bearer PT123abc...'; // seu token fixo
-
-  const authReq = req.clone({
+  // Atualiza a URL (se precisar) e adiciona o token
+  const updatedReq = req.clone({
+    url: API_BASE_URL + req.url, // concatena base URL
     setHeaders: {
-      Authorization: token
+      Authorization: token ? `Bearer ${token}` : ''
     }
   });
 
-  console.log('[INTERCEPTOR] Adicionado token à requisição:', req.url);
-  return next(authReq);
+  return next(updatedReq);
 };
