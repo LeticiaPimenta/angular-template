@@ -62,4 +62,10 @@ export class HomeComponent {
     const selectedFilter = filters[index];
     this.setFilter(selectedFilter);
   }
+
+
+  this.filteredJobs$ = this.store.select(selectAllJobs).pipe(
+    map(jobs => jobs.filter(job => job.audioid === audioID))
+  );
+
 }
