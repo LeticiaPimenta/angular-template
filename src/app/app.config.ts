@@ -7,13 +7,17 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { authReducer } from './state/reducers/auth.reducer';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { authInterceptorFn } from './shared/services/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes), 
     provideHttpClient(),
+    provideHttpClient(
+      withInterceptors([authInterceptorFn]) // ✅ função interceptor
+    ),
     provideStore({ auth: authReducer }), 
     provideEffects(),
     provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
