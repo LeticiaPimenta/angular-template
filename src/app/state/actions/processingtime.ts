@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'processingTime'
+  name: 'processingTime',
+  standalone: true
 })
 export class ProcessingTimePipe implements PipeTransform {
   transform(start: string, end: string): string {
@@ -11,7 +12,6 @@ export class ProcessingTimePipe implements PipeTransform {
     const endDate = new Date(end.replace(' ', 'T'));
 
     const diffInMs = endDate.getTime() - startDate.getTime();
-
     if (isNaN(diffInMs)) return '';
 
     const totalSeconds = Math.floor(diffInMs / 1000);
