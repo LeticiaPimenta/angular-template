@@ -119,3 +119,11 @@ aqui
     color: #2b2b2b;
   }
   
+
+  .completed {
+    background-color: #008051;
+    border-color: rgba(138, 191, 145, 0.74);
+    color: white;
+    transition: all 0.3s ease;
+  }
+  

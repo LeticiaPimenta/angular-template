@@ -2,11 +2,6 @@
 <div class="progress-bar">
     <div class="progress-bg"></div>
 </div>
-<div class="dot">Storage</div>
-<div class="dot">Check</div>
-<div class="dot">Speech</div>
-<div class="dot">tex</div>
-
 
 
 
@@ -48,3 +43,14 @@
     </div>
   </div>
   
+
+
+  07/10
+
+  <div
+  class="dot"
+  *ngFor="let label of ['Storage', 'Check', 'Speech', 'Tex']"
+  [ngClass]="{ completed: isCompleted(label) }"
+>
+  {{ label }}
+</div>
