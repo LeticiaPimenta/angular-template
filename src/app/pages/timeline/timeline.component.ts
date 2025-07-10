@@ -18,3 +18,24 @@ isCompleted(label: string): boolean {
     (step) => step.stepName === stepName && step.stepStatus === 'COMPLETED'
   );
 }
+
+
+getProgressWidth(): string {
+    if (!this.jobSteps) return '0%';
+  
+    const labels = ['Storage', 'Check', 'Speech', 'Tex'];
+    const totalSteps = labels.length;
+  
+    let completedCount = 0;
+  
+    for (let label of labels) {
+      const stepName = this.labelToStepName(label);
+      if (this.jobSteps.some(step => step.stepName === stepName && step.stepStatus === 'COMPLETED')) {
+        completedCount++;
+      }
+    }
+  
+    const percent = (completedCount / totalSteps) * 100;
+    return `${percent}%`;
+  }
+  
