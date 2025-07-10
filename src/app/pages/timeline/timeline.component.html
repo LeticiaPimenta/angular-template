@@ -1,0 +1,50 @@
+
+<div class="progress-bar">
+    <div class="progress-bg"></div>
+</div>
+<div class="dot">Storage</div>
+<div class="dot">Check</div>
+<div class="dot">Speech</div>
+<div class="dot">tex</div>
+
+
+
+
+
+
+
+
+
+
+
+<div class="timeline">
+    <div
+      class="step"
+      *ngFor="let step of steps; let i = index"
+      [ngClass]="{
+        completed: step.status === 'COMPLETED',
+        running: step.status === 'RUNNING',
+        started: step.status === 'STARTED'
+      }"
+    >
+      <div class="circle">
+        <span>{{ step.name }}</span>
+        <div *ngIf="step.status === 'STARTED'" class="pulse"></div>
+      </div>
+  
+      <div class="duration">{{ step.duration }}</div>
+  
+      <!-- Linha de conexão entre os steps -->
+      <div
+        *ngIf="i < steps.length - 1"
+        class="line"
+        [ngClass]="{ filled: steps[i].status === 'COMPLETED' }"
+      ></div>
+    </div>
+  
+    <div class="processing-time">
+      <span>Processing time</span>
+      <div>{{ processingTime }} min</div>
+    </div>
+  </div>
+  
