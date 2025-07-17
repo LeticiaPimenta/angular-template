@@ -130,3 +130,19 @@ onSeek(event: MouseEvent) {
 
   this.audioPlayerRef.nativeElement.currentTime = seekTime;
 }
+
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-audio-player',
+  templateUrl: './audio-player.component.html',
+})
+export class AudioPlayerComponent {
+  base64Audio: string = 'data:audio/mp3;base64,//...'; // Your full base64 string here
+
+  playAudio(): void {
+    const audio = new Audio(this.base64Audio);
+    audio.play();
+  }
+}
