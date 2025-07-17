@@ -61,3 +61,43 @@
     <div class="progress-bg" [ngStyle]="{ width: getProgressWidth() }"></div>
   </div>
   
+
+
+  <mat-expansion-panel **ngFor="let repot of analysisReport.results">
+    <mat-expansion-panel-header>
+       {{report.name}} 
+    </mat-expansion-panel-header>
+    {{report.highlights.annotation.text}}
+  </mat-expansion-panel>
+
+  sendo que analysisReport é:
+
+  {
+    results:
+    0 { name: "dummy", 
+        highlights: [
+        {
+            annotation: {
+                text: "hello word"
+            }
+        },
+        {
+            annotation: {
+                text: "hello word"
+            }
+        }]
+}
+    1 { name: "dummy", 
+        highlights: [
+        {
+            annotation: {
+                text: "hello word"
+            }
+        },
+        {
+            annotation: {
+                text: "hello word"
+            }
+        }]
+}
+  }
