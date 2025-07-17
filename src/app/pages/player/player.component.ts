@@ -131,18 +131,30 @@ onSeek(event: MouseEvent) {
   this.audioPlayerRef.nativeElement.currentTime = seekTime;
 }
 
-
 import { Component } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-audio-player',
-  templateUrl: './audio-player.component.html',
+  templateUrl: './audio-player.component.html'
 })
 export class AudioPlayerComponent {
-  base64Audio: string = 'data:audio/mp3;base64,//...'; // Your full base64 string here
+  audioUrl: SafeResourceUrl | undefined;
 
-  playAudio(): void {
-    const audio = new Audio(this.base64Audio);
-    audio.play();
+  constructor(private sanitizer: DomSanitizer) {}
+
+  ngOnInit() {
+    // Simulando seu dado vindo de um observable, por exemplo:
+    const audioBase64 = this.audioTranscriptionData$.audioFile;
+
+    // Monte a URL do tipo data:audio
+    const fullAudioSrc = 'data:audio/wav;base64,' + audioBase64;
+
+    // Se necessário, sanitizar:
+    this.audioUrl = this.sanitizer.bypassSecurityTrustResourceUrl(fullAudioSrc);
   }
+
+  audioTranscriptionData$ = {
+    audioFile: 'UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAACJWAAACABAAZGF0YYAAAACAgICAgIC..'
+  };
 }
