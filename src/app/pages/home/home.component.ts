@@ -6,6 +6,9 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { FilterTabDirective } from '../../shared/filter-tab.directive';
 import { Item } from '../../shared/models/item.model';
+import { createFeature, createFeatureSelector, createReducer, createSelector } from '@ngrx/store';
+import { UseCaseComponent } from '../use-case/use-case.component';
+import { initialState } from '../../state/reducers/auth.reducer';
 
 
 @Component({
@@ -68,4 +71,33 @@ export class HomeComponent {
     map(jobs => jobs.filter(job => job.audioid === audioID))
   );
 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ngOnInit() {
+  this.filtereduseCases$ = combineLatest([
+    this.store.select(selectAllUseCase),
+    this.useCaseControl.valueChanges.pipe(startWith(''))
+  ]).pipe(
+    map(([useCases, search]) => {
+      if (typeof search === 'string') {
+        return useCases.filter(u => u.name.toLowerCase().includes(search.toLowerCase()));
+      } else {
+        return useCases; // Quando selecionado diretamente
+      }
+    })
+  );
 }
