@@ -73,3 +73,46 @@
         </div>
     </div>
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- Operational Overview -->
+<div class="sidenav-item" 
+     [class.active]="selectedItem === 'overview'" 
+     (click)="selectItem('overview')">
+  <div class="sidenav-icon">
+    <!-- ícone -->
+  </div>
+  <div class="sidenav-label">Operational Overview</div>
+</div>
+
+<!-- Job Performance -->
+<div class="sidenav-item" 
+     [class.active]="selectedItem === 'performance'" 
+     (click)="selectItem('performance')">
+  <div class="sidenav-icon">
+    <!-- ícone -->
+  </div>
+  <div class="sidenav-label">Job Performance</div>
+</div>
+
+<!-- Calls Transcriptions -->
+<div class="sidenav-item" 
+     [class.active]="selectedItem === 'calls'" 
+     (click)="selectItem('calls')">
+  <div class="sidenav-icon">
+    <!-- ícone -->
+  </div>
+  <div class="sidenav-label">Calls Transcriptions</div>
+</div>

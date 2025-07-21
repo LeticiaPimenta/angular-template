@@ -17,4 +17,11 @@ import { MatDividerModule } from '@angular/material/divider';
   styleUrl: './sidenav.component.css'
 })
 export class SidenavComponent {
+  
+selectedItem: string = 'overview'; // Valor inicial
+
+  selectItem(item: string) {
+    this.selectedItem = item;
+  }
 }
+
