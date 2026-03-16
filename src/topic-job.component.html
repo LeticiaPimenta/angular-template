@@ -1,0 +1,34 @@
+<label for="topicDropdown">Topic</label>
+
+<select
+  id="topicDropdown"
+  (change)="onTopicChange($event)">
+
+  <option value="">Select topic</option>
+
+  <option
+    *ngFor="let topic of topics"
+    [value]="topic.id">
+    {{ topic.title }}
+  </option>
+
+</select>
+
+<div *ngIf="selectedTopic() as topic">
+
+  <h3>Selected Topic: {{ topic.title }}</h3>
+
+  <p><strong>Description:</strong> {{ topic.description }}</p>
+  <p><strong>Keywords:</strong> {{ topic.keywords }}</p>
+  <p><strong>Summary:</strong> {{ topic.summary }}</p>
+
+  <div>
+    <strong>Document:</strong>
+    <ul>
+      <li *ngFor="let phrase of topic.topicDocument.description">
+        {{ phrase }}
+      </li>
+    </ul>
+  </div>
+
+</div>
