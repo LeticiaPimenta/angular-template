@@ -1,27 +1,15 @@
 <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="filter-container">
-  
-  <mat-form-field appearance="outline">
-    <mat-label>ID</mat-label>
-    <input matInput formControlName="id">
+
+  <mat-form-field appearance="outline" class="range-field">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="rangePicker">
+      <input matStartDate formControlName="startDate" placeholder="Start date">
+      <input matEndDate formControlName="endDate" placeholder="End date">
+    </mat-date-range-input>
+    
+    <mat-datepicker-toggle matIconSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #rangePicker></mat-date-range-picker>
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name">
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-    <mat-label>Audio Date</mat-label>
-    <input matInput [matDatepicker]="picker" formControlName="audioDate">
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-
-  <div class="actions">
-    <button type="button" mat-button (click)="onReset()" class="btn-reset">Reset</button>
-    <button type="submit" mat-flat-button color="primary" class="btn-search">
-      <mat-icon>search</mat-icon> Search
-    </button>
-  </div>
-
+  <button type="submit" mat-flat-button class="btn-search">Search</button>
 </form>
