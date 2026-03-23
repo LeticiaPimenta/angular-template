@@ -1,0 +1,40 @@
+import { createAction, props } from '@ngrx/store';
+
+export const loadItems = createAction(
+  '[Home] Load Items',
+  props<{ start: string; end: string }>()
+);
+
+
+loadItems$ = createEffect(() =>
+  this.actions$.pipe(
+    ofType(loadItems),
+    switchMap(({ start, end }) =>
+      this.apiService.getItems(start, end).pipe(
+        map(data => loadItemsSuccess({ data })),
+        catchError(() => of(loadItemsFailure()))
+      )
+    )
+  )
+);
+
+
+on(loadItemsSuccess, (state, { data }) => ({
+  ...state,
+  items: data
+}))
+
+
+
+
+search(): void {
+  const start = this.form.get('dateRange.start')?.value;
+  const end = this.form.get('dateRange.end')?.value;
+
+  if (!start || !end) return;
+
+  this.store.dispatch(loadItems({
+    start: this.formatDate(start),
+    end: this.formatDate(end)
+  }));
+}
