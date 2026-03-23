@@ -38,3 +38,43 @@ search(): void {
     end: this.formatDate(end)
   }));
 }
+
+
+aqui
+export const setSelectedUseCase = createAction(
+  '[Jobs] Set Selected Use Case',
+  props<{ useCase: string; startDate?: string; endDate?: string }>()
+);
+
+loadJobs$ = createEffect(() =>
+    this.actions$.pipe(
+        ofType(setSelectedUseCase),
+        mergeMap(({ useCase, startDate, endDate }) => 
+            this.JobService.getAllJobs(useCase, startDate, endDate).pipe(
+                map(jobs => setJobs({ jobs })),
+                catchError(() => of(setJobs({ jobs: [] })))
+            )
+        )
+    )
+);
+
+getAllJobs(useCase: string, startDate?: string, endDate?: string): Observable<Job[]> {
+  let params = new HttpParams().set('useCase', useCase);
+
+  if (startDate && endDate) {
+    params = params.set('startDate', startDate).set('endDate', endDate);
+  }
+
+  return this.http.get<Job[]>(`${this.apiUrl}/jobs`, { params });
+}
+
+onSearch() {
+  const { startDate, endDate } = this.searchForm.value;
+
+  this.store.dispatch(setSelectedUseCase({
+    useCase: this.currentUseCase,
+    // Formatação simples para yyyy-mm-dd
+    startDate: startDate?.toISOString().split('T')[0], 
+    endDate: endDate?.toISOString().split('T')[0]
+  }));
+}
