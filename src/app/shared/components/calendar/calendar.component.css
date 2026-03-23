@@ -1,34 +1,24 @@
+/* Container alinhado em linha */
 .filter-container {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
   align-items: center;
-  padding: 16px;
-  background: #fff;
+  gap: 10px;
 }
 
-/* Deixa os inputs com as bordas arredondadas como na imagem */
+/* Largura específica para o range para caber "DD/MM/YYYY - DD/MM/YYYY" */
+.range-field {
+  width: 280px; 
+}
+
+/* Mantendo o estilo arredondado da imagem anterior */
 ::ng-deep .mat-mdc-text-field-wrapper {
   border-radius: 50px !important;
-}
-
-/* Ajusta a largura dos campos pequenos */
-mat-form-field {
-  width: 150px;
-}
-
-.actions {
-  display: flex;
-  gap: 8px;
-  align-items: center;
+  background-color: #fff;
 }
 
 .btn-search {
-  background-color: #00875a !important; /* Cor verde da imagem */
-  border-radius: 50px;
+  background-color: #00875a;
   color: white;
-}
-
-.btn-reset {
-  color: #666;
+  border-radius: 50px;
+  height: 40px;
 }
