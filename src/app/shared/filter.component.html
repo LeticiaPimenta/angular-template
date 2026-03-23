@@ -54,3 +54,16 @@
   <tr mat-row *matRowDef="let row; columns: ['example'];"></tr>
 </table>
 
+
+
+<mat-form-field appearance="outline">
+  <mat-label>Período</mat-label>
+
+  <mat-date-range-input [rangePicker]="picker">
+    <input matStartDate placeholder="Start date">
+    <input matEndDate placeholder="End date">
+  </mat-date-range-input>
+
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-date-range-picker #picker></mat-date-range-picker>
+</mat-form-field>
