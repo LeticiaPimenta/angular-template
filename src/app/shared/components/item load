@@ -78,3 +78,30 @@ onSearch() {
     endDate: endDate?.toISOString().split('T')[0]
   }));
 }
+
+
+onSearch() {
+  const { startDate, endDate } = this.searchForm.value;
+
+  // Função auxiliar para garantir que a data seja tratada como meia-noite UTC
+  const formatToISO = (date: Date | null | undefined) => {
+    if (!date) return undefined;
+    
+    // Criamos uma nova instância para não mutar a original
+    const d = new Date(date);
+    // Zeramos as horas para garantir o formato T00:00:00.000Z
+    d.setHours(0, 0, 0, 0); 
+    
+    return d.toISOString(); 
+  };
+
+  const useCaseName = this.currentUseCase()[0]?.useCaseName;
+
+  if (useCaseName) {
+    this.store.dispatch(setSelectedUseCase({
+      useCase: useCaseName,
+      startDate: formatToISO(startDate), // '2025-04-05T00:00:00.000Z'
+      endDate: formatToISO(endDate)      // '2025-04-05T00:00:00.000Z'
+    }));
+  }
+}
