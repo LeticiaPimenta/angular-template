@@ -105,3 +105,25 @@ onSearch() {
     }));
   }
 }
+
+
+
+import { tap } from 'rxjs/operators'; // Certifique-se de importar o tap
+
+loadJobs$ = createEffect(() =>
+    this.actions$.pipe(
+        ofType(setSelectedUseCase),
+        // O tap intercepta a action antes de ir para o mergeMap
+        tap(action => {
+            if (action.useCase) {
+                localStorage.setItem('lastSelectedUseCase', action.useCase);
+            }
+        }),
+        mergeMap(action => 
+            this.JobService.getAllJobs(action.useCase, action.startDate, action.endDate).pipe(
+                map(jobs => setJobs({ jobs })),
+                catchError(() => of(setJobs({ jobs: [] })))
+            )
+        )
+    )
+);
